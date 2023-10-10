@@ -2,6 +2,10 @@
 
 const myLibrary = [];
 
+const openModal = document.querySelector(".open");
+const closeModal = document.querySelector(".close");
+const modal = document.querySelector(".modal");
+
 function Book(title, author, num_pages, read) {
     this.title = title;
     this.author = author;
@@ -15,12 +19,34 @@ function Book(title, author, num_pages, read) {
 
 function addBookToLibrary(title, author, num_pages, read) {
     myLibrary.push(new Book(title, author, num_pages, read));
-}
 
-addBookToLibrary("one", "sam", 400, false);
-addBookToLibrary("two", "ed", 600, true);
-addBookToLibrary("three", "alv", 200, true);
-addBookToLibrary("four", "tor", 250, false);
+    const booksContainer = document.querySelector(".books-container");
+
+    let book = document.createElement("div");
+    book.classList.add("book");
+
+    let titleDiv = document.createElement("div");
+    titleDiv.classList.add("title");
+    titleDiv.textContent = title;
+    
+    let authorDiv = document.createElement("div");
+    authorDiv.classList.add("author");
+    authorDiv.textContent = `Author: ${author}`;
+
+    let num_pagesDiv = document.createElement("div");
+    num_pagesDiv.classList.add("num-pages");
+    num_pagesDiv.textContent = `Number of Pages: ${num_pages}`;
+
+    let readDiv = document.createElement("div");
+    readDiv.classList.add("read");
+    readDiv.textContent = `Status: ${read ? "read": "not read"}`;
+
+    book.appendChild(titleDiv);
+    book.appendChild(authorDiv);
+    book.appendChild(num_pagesDiv);
+    book.appendChild(readDiv);
+    booksContainer.appendChild(book);
+}
 
 function getBooks() {
     const booksContainer = document.querySelector(".books-container");
@@ -53,4 +79,27 @@ function getBooks() {
     }
 }
 
-getBooks();
+openModal.addEventListener("click", () => {
+    modal.showModal();
+});
+
+closeModal.addEventListener("click", () => {
+    modal.close();
+});
+
+const modalForm = document.getElementById("modal-form");
+
+modalForm.addEventListener("submit", (event) => {
+
+    const titleInput = document.getElementById("title");
+    const authorInput = document.getElementById("author");
+    const num_pagesInput = document.getElementById("num-pages");
+    const isReadInput = document.getElementById("has-read");
+    const isRead = isReadInput.value === "read" ? true : false;
+
+    addBookToLibrary(titleInput.value, authorInput.value, num_pagesInput.value, isRead);
+
+    modal.close();
+    modalForm.reset();
+    event.preventDefault();
+});
