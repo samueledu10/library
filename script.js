@@ -20,10 +20,27 @@ function Book(title, author, num_pages, read) {
 function addBookToLibrary(title, author, num_pages, read) {
     myLibrary.push(new Book(title, author, num_pages, read));
 
+    displayBook(title, author, num_pages, read, myLibrary.length - 1);
+}
+
+function deleteBook(index) {
+    myLibrary.splice(index, 1);
+    let bookToRemove = document.querySelector(`[data-index="${index}"]`);
+    bookToRemove.remove();
+
+    for (let i = index; i < myLibrary.length; ++i) {
+        let book = document.querySelector(`[data-index="${i + 1}"]`);
+        book.setAttribute("data-index", i);
+    }
+}
+
+function displayBook(title, author, num_pages, read, index) {
     const booksContainer = document.querySelector(".books-container");
 
     let book = document.createElement("div");
     book.classList.add("book");
+
+    book.setAttribute("data-index", `${index}`);
 
     let titleDiv = document.createElement("div");
     titleDiv.classList.add("title");
@@ -41,41 +58,27 @@ function addBookToLibrary(title, author, num_pages, read) {
     readDiv.classList.add("read");
     readDiv.textContent = `Status: ${read ? "read": "not read"}`;
 
+    let delBtn = document.createElement("button");
+    delBtn.textContent = "Delete";
+    delBtn.classList.add("delete");
+
+    delBtn.addEventListener("click", () => {
+        deleteBook(index);
+    })
+
+
     book.appendChild(titleDiv);
     book.appendChild(authorDiv);
     book.appendChild(num_pagesDiv);
     book.appendChild(readDiv);
+    book.appendChild(delBtn);
     booksContainer.appendChild(book);
 }
 
-function getBooks() {
-    const booksContainer = document.querySelector(".books-container");
+function displayBooks() {
 
     for (let i = 0; i < myLibrary.length; ++i) {
-        let book = document.createElement("div");
-        book.classList.add("book");
-
-        let title = document.createElement("div");
-        title.classList.add("title");
-        title.textContent = myLibrary[i].title;
-        
-        let author = document.createElement("div");
-        author.classList.add("author");
-        author.textContent = `Author: ${myLibrary[i].author}`;
-
-        let num_pages = document.createElement("div");
-        num_pages.classList.add("num-pages");
-        num_pages.textContent = `Number of Pages: ${myLibrary[i].num_pages}`;
-
-        let read = document.createElement("div");
-        read.classList.add("read");
-        read.textContent = `Status: ${myLibrary[i].read ? "read": "not read"}`;
-
-        book.appendChild(title);
-        book.appendChild(author);
-        book.appendChild(num_pages);
-        book.appendChild(read);
-        booksContainer.appendChild(book);
+        displayBook(myLibrary[i].title, myLibrary[i].author, myLibrary[i].num_pages, myLibrary[i].read, i);
     }
 }
 
