@@ -48,11 +48,11 @@ function displayBook(title, author, num_pages, readStatus, index) {
     
     let authorDiv = document.createElement("div");
     authorDiv.classList.add("author");
-    authorDiv.textContent = `Author: ${author}`;
+    authorDiv.textContent = `By ${author}`;
 
     let num_pagesDiv = document.createElement("div");
     num_pagesDiv.classList.add("num-pages");
-    num_pagesDiv.textContent = `Number of Pages: ${num_pages}`;
+    num_pagesDiv.textContent = `${num_pages} pages`;
 
     let readBtn = document.createElement("button");
     readBtn.textContent = readStatus;
@@ -117,3 +117,10 @@ modalForm.addEventListener("submit", (event) => {
     modalForm.reset();
     event.preventDefault();
 });
+
+
+addBookToLibrary("Moby Dick", "Herman Melville", 123, "read");
+addBookToLibrary("Harry Potter", "J.K. Rowling", 456, "not read");
+addBookToLibrary("Jujutsu Kaisen", "Gege Akutami", 192, "not read");
+addBookToLibrary("One Piece", "Eiichiro Oda", 200, "read");
+addBookToLibrary("Chainsaw Man", "Tatsuki Fujimoto", 150, "not read");
