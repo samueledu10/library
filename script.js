@@ -34,7 +34,7 @@ function deleteBook(index) {
     }
 }
 
-function displayBook(title, author, num_pages, read, index) {
+function displayBook(title, author, num_pages, readStatus, index) {
     const booksContainer = document.querySelector(".books-container");
 
     let book = document.createElement("div");
@@ -54,9 +54,21 @@ function displayBook(title, author, num_pages, read, index) {
     num_pagesDiv.classList.add("num-pages");
     num_pagesDiv.textContent = `Number of Pages: ${num_pages}`;
 
-    let readDiv = document.createElement("div");
-    readDiv.classList.add("read");
-    readDiv.textContent = `Status: ${read ? "read": "not read"}`;
+    let readBtn = document.createElement("button");
+    readBtn.textContent = readStatus;
+
+    readBtn.addEventListener("click", () => {
+        if (readBtn.textContent === "read") {
+            readBtn.textContent = "not read";
+            readBtn.classList.add("not-read");
+            myLibrary[index].read = "not-read";
+        }
+        else {
+            readBtn.textContent = "read";
+            readBtn.classList.add("read");
+            myLibrary[index].read = "read";
+        }
+    });
 
     let delBtn = document.createElement("button");
     delBtn.textContent = "Delete";
@@ -66,11 +78,10 @@ function displayBook(title, author, num_pages, read, index) {
         deleteBook(index);
     })
 
-
     book.appendChild(titleDiv);
     book.appendChild(authorDiv);
     book.appendChild(num_pagesDiv);
-    book.appendChild(readDiv);
+    book.appendChild(readBtn);
     book.appendChild(delBtn);
     booksContainer.appendChild(book);
 }
@@ -98,9 +109,9 @@ modalForm.addEventListener("submit", (event) => {
     const authorInput = document.getElementById("author");
     const num_pagesInput = document.getElementById("num-pages");
     const isReadInput = document.getElementById("has-read");
-    const isRead = isReadInput.value === "read" ? true : false;
+    //const isRead = isReadInput.value === "read" ? true : false;
 
-    addBookToLibrary(titleInput.value, authorInput.value, num_pagesInput.value, isRead);
+    addBookToLibrary(titleInput.value, authorInput.value, num_pagesInput.value, isReadInput.value);
 
     modal.close();
     modalForm.reset();
