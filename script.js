@@ -109,7 +109,6 @@ modalForm.addEventListener("submit", (event) => {
     const authorInput = document.getElementById("author");
     const num_pagesInput = document.getElementById("num-pages");
     const isReadInput = document.getElementById("has-read");
-    //const isRead = isReadInput.value === "read" ? true : false;
 
     addBookToLibrary(titleInput.value, authorInput.value, num_pagesInput.value, isReadInput.value);
 

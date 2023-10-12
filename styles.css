@@ -74,3 +74,66 @@ body {
     background-color: red;
     color: white;
 }
+
+.modal[open] {
+    color: white;
+    background-color: #101D42;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #6564DB;
+}
+
+.modal h2 {
+    align-self: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form .field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="text"],
+input[type="tel"],
+select {
+    height: 20px;
+    width: 150px;
+    font-size: 16px;
+    border-radius: 3px;
+    border: none;
+}
+
+.form-btns {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+form button{
+    border: none;
+    border-radius: 3px;
+    height: 30px;
+    width: 100px;
+}
+
+form button:hover,
+select:hover {
+    cursor: pointer;
+}
+
+.submit {
+    background-color: #6564DB;
+    color: white;
+}
+
+.close {
+    background-color: white;
+}
